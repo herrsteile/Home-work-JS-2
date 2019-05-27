@@ -16,27 +16,28 @@ var line = '----------------------------------';
 function continueRun() {
     var contRun = confirm('Вернуться к выбору действия?');
 
-    if (contRun === false) {
-    finish();
-    return;
+    if (!contRun) {
+        finish();
+        return;
     }
+
     run();
 }
 
-
 function finish() {
     var end = confirm('Good bye!');
-    if (end === false){
-       return;
+
+    if (end === false) {
+        return;
     } else {
-       return;
+        return;
     }
 }
 
 function wrongData() {
     var wrong = confirm('Сначала нужно зарегестрироваться (a)');
 
-    if (wrong === false) {
+    if (!wrong) {
         finish();
         return;
     } else {
@@ -44,30 +45,29 @@ function wrongData() {
     }
 }
 
-
 function showUser(selectedUser) {
-    console.log('[name]:' + selectedUser['name']);
-    console.log('[surname]:' + selectedUser['surname']);
-    console.log('[age]:' + selectedUser['age']);
-    console.log('[email]:' + selectedUser['email']);
-    console.log('[password]:' + selectedUser['password']);
+    for (var prop in selectedUser) console.log('[' + prop + ']:', selectedUser[prop]);
+
+    // console.log('[name]:' + selectedUser['name']);
+    // console.log('[surname]:' + selectedUser['surname']);
+    // console.log('[age]:' + selectedUser['age']);
+    // console.log('[email]:' + selectedUser['email']);
+    // console.log('[password]:' + selectedUser['password']);
     // return;
 }
 
 alert('Welcome!');
 
 function run() {
-    // console.clear();
-
     choice = prompt('Введите букву для выбора действия:\n' +
-                    registration +
-                    autorization +
-                    listOfUsers +
-                    changeData +
-                    quit +
-                    clear, '');
+        registration +
+        autorization +
+        listOfUsers +
+        changeData +
+        quit +
+        clear, '');
 
-        // Registration
+    // Registration
 
     if (choice === 'a') {
 
@@ -75,7 +75,7 @@ function run() {
 
         var name = prompt('Введите Ваше имя:', '');
 
-        if(name === null) {
+        if (name === null) {
             finish();
             return;
         }
@@ -83,8 +83,8 @@ function run() {
         user['name'] = name;
 
         var surname = prompt('Введите Вашу фамилию:', '');
-        
-        if(surname === null) {
+
+        if (surname === null) {
             finish();
             return;
         }
@@ -92,18 +92,18 @@ function run() {
         user['surname'] = surname;
 
         var age = prompt('Введите Ваш возраст:', '');
-        
-        if(age === null) {
+
+        if (age === null) {
             finish();
             return;
         }
 
         user['age'] = age;
-        
+
 
         var email = prompt('Введите Ваш эмейл:', '');
-        
-        if(email === null) {
+
+        if (email === null) {
             finish();
             return;
         }
@@ -111,68 +111,68 @@ function run() {
         user['email'] = email;
 
         var password = prompt('Введите Ваш пароль:', '');
-        
+
         if (password === null) {
             finish();
             return;
         }
-        
+
         user['password'] = password;
-        
+
         users.push(user);
 
         console.log('[users]', users);
         console.log('Добавлен новый пользователь' + ' ' + user.name + ' ' + user.surname);
 
         continueRun();
-        
 
-            // Autorization
-            
+
+        // Autorization
+
     } else if (choice === 'b') {
         var currentEmail = prompt('Введите email', '');
         var currentPassword = prompt('Введите пароль', '');
-        
+
         if (currentEmail === null) {
             finish();
             return;
         }
-            
+
         var selectedUser = null;
-        
-        users.forEach(function(user, i) {
+
+        users.forEach(function (user) {
             if (user.email === currentEmail && user.password === currentPassword) {
-            selectedUser = user;
+                selectedUser = user;
 
-            console.log('Авторизация прошла успешно');
-            showUser(selectedUser);
+                console.log('Авторизация прошла успешно');
+                showUser(selectedUser);
 
-            continueRun();
-            } 
+                continueRun();
+            }
         });
 
-        users.forEach(function(user, i) {
+        users.forEach(function (user) {
             if (user.email !== currentEmail || user.password !== currentPassword) {
-            console.log('Wrong!');
-            wrongData();     
+                console.log('Wrong!');
+                wrongData();
             }
         });
 
         // List of users
 
     } else if (choice === 'c') {
-        if (users.length !== 0 ){
-        console.log(line);
-        console.log('%cПользователей зарегистрировано:', 'color: coral', + ' ' + users.length);
-        console.log(line);
+        if (!users.length) {
+            console.log(line);
+            console.log('%cПользователей зарегистрировано:', 'color: coral', + ' ' + users.length);
+            console.log(line);
 
 
-        users.forEach(function(user, i) {
-        showUser(user);
-        console.log(line);
-        })
+            users.forEach(function (user) {
+                showUser(user);
+                console.log(line);
+            });
 
-        continueRun();
+            continueRun();
 
         } else {
             wrongData();
@@ -182,17 +182,16 @@ function run() {
     } else if (choice === 'd') {
 
         var changeUser = prompt('Введите имя редактируемого юзера');
-        
         var changedUser = null;
 
-        users.forEach(function(user, i) {
+        users.forEach(function (user) {
             if (changeUser === user.name) {
 
                 changedUser = user;
 
                 var name = prompt('Введите Ваше имя:', '');
 
-                if(name === null) {
+                if (name === null) {
                     finish();
                     return;
                 }
@@ -200,47 +199,47 @@ function run() {
                 changedUser['name'] = name;
 
                 var surname = prompt('Введите Вашу фамилию:', '');
-                
-                if(surname === null) {
+
+                if (surname === null) {
                     finish();
                     return;
                 }
-        
+
                 changedUser['surname'] = surname;
-        
+
                 var age = prompt('Введите Ваш возраст:', '');
-                
-                if(age === null) {
+
+                if (age === null) {
                     finish();
                     return;
                 }
-        
+
                 changedUser['age'] = age;
-                
-        
+
+
                 var email = prompt('Введите Ваш эмейл:', '');
-                
-                if(email === null) {
+
+                if (email === null) {
                     finish();
                     return;
                 }
-        
+
                 changedUser['email'] = email;
-        
+
                 var password = prompt('Введите Ваш пароль:', '');
-                
+
                 if (password === null) {
                     finish();
                     return;
                 }
-                
+
                 changedUser['password'] = password;
 
                 continueRun();
             }
         });
 
-        users.forEach(function(user, i) {
+        users.forEach(function (user, i) {
             if (changeUser !== user.name || changeUser !== changedUser.name) {
                 wrongData();
             }
@@ -255,14 +254,14 @@ function run() {
         return;
 
     } else if (choice === 'clear') {
-        
+
         console.clear();
         run()
 
     } else if (choice === null) {
         finish();
         return;
-    
+
     } else {
         alert('Нужно ввести букву: a, b, c, d, или q');
         run();
