@@ -48,12 +48,6 @@ function wrongData() {
 function showUser(selectedUser) {
     for (var prop in selectedUser) console.log('[' + prop + ']:', selectedUser[prop]);
 
-    // console.log('[name]:' + selectedUser['name']);
-    // console.log('[surname]:' + selectedUser['surname']);
-    // console.log('[age]:' + selectedUser['age']);
-    // console.log('[email]:' + selectedUser['email']);
-    // console.log('[password]:' + selectedUser['password']);
-    // return;
 }
 
 alert('Welcome!');
