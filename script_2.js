@@ -1,21 +1,21 @@
 'use strict';
 
 function father() {
-
     alert('Welcome!');
+
+    var users = [];
 
     function run() {
 
-        var users = [];
-        var firstUser = {
+
+        users[0] = {
             name: 'Dmitriy',
             surname: 'Miroshnychenko',
             age: '21',
             email: 'dima@gmail.com',
             password: '123'
         };
-        var user = {};
-        users[0] = firstUser;
+
 
         function continueRun() {
             var contRun = confirm('Вернуться к выбору действия?');
@@ -24,7 +24,6 @@ function father() {
                 finish();
                 return;
             }
-
             run();
         }
 
@@ -40,7 +39,6 @@ function father() {
                 finish();
                 return;
             }
-
             run();
         }
 
@@ -60,8 +58,9 @@ function father() {
 
         if (choice === 'a') {
 
+            var user = {};
 
-            for (var key in firstUser) {
+            for (var key in users[0]) {
                 var question = prompt('Set your ' + key + ':', '');
 
                 user[key] = question;
@@ -70,12 +69,12 @@ function father() {
                     finish();
                     return;
                 };
-            }
+            };
 
             users.push(user);
 
+            console.log('Добавлен новый пользователь ' + user.name + ' ' + user.surname);
             console.log('[users]', users);
-            console.log('Добавлен новый пользователь' + ' ' + user.name + ' ' + user.surname);
 
             continueRun();
 
@@ -96,13 +95,19 @@ function father() {
                 if (user.email === currentEmail && user.password === currentPassword) {
                     selectedUser = user;
 
-                    console.log('Авторизация прошла успешно');
+                    console.log('Login was successful!');
                     showUser(selectedUser);
 
                     continueRun();
                 } else if (user.email !== currentEmail || user.password !== currentPassword) {
                     console.log('Wrong!');
-                    wrongData();
+                    var wrongValue = confirm('Email or password is not correct');
+
+                    if (!wrongValue) {
+                        finish();
+                        return;
+                    }
+                    run();
                 }
             });
 
@@ -111,7 +116,7 @@ function father() {
         } else if (choice === 'c') {
             var line = '----------------------------------';
 
-            if (!users.length) {
+            if (users.length) {
                 console.log(line);
                 console.log('%cПользователей зарегистрировано:', 'color: coral', + users.length);
                 console.log(line);
@@ -131,63 +136,34 @@ function father() {
 
         } else if (choice === 'd') {
 
-            var changeUser = prompt('Введите имя редактируемого юзера');
-            var changedUser = null;
+            var changeUser = prompt('Enter the name of the user being edited');
 
             users.forEach(function (user) {
                 if (changeUser === user.name) {
 
-                    changedUser = user;
+                    for (var key in users[0]) {
+                        var question = prompt('Set your ' + key + ':', '');
 
-                    var name = prompt('Введите Ваше имя:', '');
+                        user[key] = question;
 
-                    if (name === null) {
-                        finish();
-                        return;
-                    }
-
-                    changedUser['name'] = name;
-
-                    var surname = prompt('Введите Вашу фамилию:', '');
-
-                    if (surname === null) {
-                        finish();
-                        return;
-                    }
-
-                    changedUser['surname'] = surname;
-
-                    var age = prompt('Введите Ваш возраст:', '');
-
-                    if (age === null) {
-                        finish();
-                        return;
-                    }
-
-                    changedUser['age'] = age;
-
-
-                    var email = prompt('Введите Ваш эмейл:', '');
-
-                    if (email === null) {
-                        finish();
-                        return;
-                    }
-
-                    changedUser['email'] = email;
-
-                    var password = prompt('Введите Ваш пароль:', '');
-
-                    if (password === null) {
-                        finish();
-                        return;
-                    }
-
-                    changedUser['password'] = password;
+                        if (question === null) {
+                            finish();
+                            return;
+                        };
+                    };
 
                     continueRun();
-                } else if (changeUser !== user.name || changeUser !== changedUser.name) {
+
+                } else if (changeUser !== user.name) {
+                    console.log('Wrong');
                     wrongData();
+
+                    if (!wrongData) {
+                        finish();
+                        return;
+                    }
+
+                    run();
                 }
             });
 

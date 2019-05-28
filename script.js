@@ -53,13 +53,13 @@ function showUser(selectedUser) {
 alert('Welcome!');
 
 function run() {
-    choice = prompt('Введите букву для выбора действия:\n' +
-        registration +
-        autorization +
-        listOfUsers +
-        changeData +
-        quit +
-        clear, '');
+    var choice = prompt('Введите букву для выбора действия:\n' +
+    'a) Зарегистрироваться\n' +
+    'b) Авторизоваться\n' +
+    'c) Посмотреть список всех пользователей\n' +
+    'd) Изменить данные пользователя\n' +
+    'q) Выйти\n' +
+    'Напишите clear для очистки консоля\n', '');
 
     // Registration
 
@@ -155,7 +155,7 @@ function run() {
         // List of users
 
     } else if (choice === 'c') {
-        if (!users.length) {
+        if (users.length !== 0) {
             console.log(line);
             console.log('%cПользователей зарегистрировано:', 'color: coral', + ' ' + users.length);
             console.log(line);
