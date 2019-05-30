@@ -16,6 +16,13 @@ function father() {
             password: '123'
         };
 
+        function findEmail(user) {
+            return user.email === currentEmail;
+        }
+
+        function findPassword(user) {
+            return user.password === currentPassword;
+        }
 
         function continueRun() {
             var contRun = confirm('Вернуться к выбору действия?');
@@ -42,9 +49,9 @@ function father() {
             run();
         }
 
-        function showUser(selectedUser) {
-            for (var prop in selectedUser) console.log('[' + prop + ']:', selectedUser[prop]);
-        }
+        // function showUser(selectedUser) {
+        //     for (var prop in selectedUser) console.log('[' + prop + ']:', selectedUser[prop]);
+        // }
 
         var choice = prompt('Введите букву для выбора действия:\n' +
             'a) Зарегистрироваться\n' +
@@ -89,31 +96,41 @@ function father() {
                 return;
             }
 
-            var selectedUser = null;
 
-            users.forEach(function (user) {
-                if (user.email === currentEmail && user.password === currentPassword) {
-                    selectedUser = user;
+            // var selectedUser = null;
 
-                    console.log('Login was successful!');
-                    showUser(selectedUser);
+            if (users.find(findEmail) && users.find(findPassword)) {
 
-                    continueRun();
-                } else if (user.email !== currentEmail || user.password !== currentPassword) {
-                    console.log('Wrong!');
-                    var wrongValue = confirm('Email or password is not correct');
+                // selectedUser = user;
 
-                    if (!wrongValue) {
-                        finish();
-                        return;
-                    }
-                    run();
+                console.log('Login was successful!');
+                console.log('[name]: ' + user.name);
+                console.log('[surname]: ' + user.surname);
+                console.log('[age]: ' + user.age);
+                console.log('[email]: ' + user.email);
+                console.log('[password]: ' + user.password);
+
+                // (function showUser(user) {
+                //     for (var prop in user) console.log('[' + prop + ']:', user[prop]);
+                // })();
+
+                continueRun();
+
+            } else if (!users.find(findEmail) || !users.find(findPassword)) {
+                console.log('Wrong!'); 
+                var wrongValue = confirm('Email or password is not correct');
+
+                if (!wrongValue) {
+                    finish();
+                    return;
                 }
-            });
+                run();
+            }
 
             // List of users
 
         } else if (choice === 'c') {
+
             var line = '----------------------------------';
 
             if (users.length) {
