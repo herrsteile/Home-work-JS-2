@@ -1,6 +1,6 @@
 'use strict';
 
-function father() {
+(function father() {
     alert('Welcome!');
 
     var users = [];
@@ -182,6 +182,4 @@ function father() {
         }
     }
     run();
-}
-
-father();
+})();
